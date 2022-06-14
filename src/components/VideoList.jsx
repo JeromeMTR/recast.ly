@@ -1,16 +1,20 @@
 import VideoListEntry from './VideoListEntry.js';
+import App from './App.js';
+var VideoList = (props) => {
+  // console.log('VideoList:', props);
 
-var VideoList = ({videos}) => (
-  <div className="video-list">
-    {/* <div><h5><em>videoListEntry</em> view goes here</h5></div>
+  return (
+    <div className="video-list">
+      {/* <div><h5><em>videoListEntry</em> view goes here</h5></div>
     <div><h5><em>videoListEntry</em> view goes here</h5></div>
     <div><h5><em>videoListEntry</em> view goes here</h5></div>
     <div><h5><em>videoListEntry</em> view goes here</h5></div>
     <div><h5><em>videoListEntry</em> view goes here</h5></div> */}
-    {videos.map((eachVideo, index) => <VideoListEntry key={index} video={eachVideo}/>) }
+      {props.videos.map((eachVideo, index) => <VideoListEntry key={index} video={eachVideo} videoListFunc={props.appFunc ? props.appFunc.bind(this, eachVideo) : undefined}/>) }
 
-  </div>
-);
+    </div>
+  );
+};
 
 
 // PropTypes tell other developers what `props` a component expects
