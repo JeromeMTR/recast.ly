@@ -9,13 +9,11 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      videos: exampleVideoData,
+      videos: [],
       currentVideo: exampleVideoData[0],
       searchText: 'JS'
     };
   }
-
-
 
   changeVideo(video) {
     this.setState({currentVideo: video});
@@ -24,19 +22,32 @@ class App extends React.Component {
   // get value inside search bar
   // change the search text to that value
   search(event) {
-    clearTimeout(test);
     console.log('text:', event.target.value);
     this.setState({searchText: event.target.value});
-    //set timeout 500ms
-    var test = (setTimeout(searchYouTube(event.target.value,this.setState.bind(this, ({videos: data}), 500))));
+    //this.componentDidMount();
+    searchYouTube(this.state.searchText, this.changeList.bind(this));
   }
 
+  // componentDidMount() {
+  //   searchYouTube(this.state.searchText, this.changeList.bind(this));
+  // }
 
+  // testSearch(text) {
+  //   console.log('text:', text);
+  //   searchYouTube(text, (data) => {
+  //     console.log('data:', data);
+
+  //     this.setState({
+  //       videos: data,
+  //       currentVideo: data[0]
+  //     });
+  //   });
+  // }
 
   changeList(list) {
     //take in example video data
     // define array thatll be new list of hits from search
-    var newList = [];
+    /*var newList = [];
     // forEach videoObj  (in the example array)
     list.forEach((video) => {
       //  if videoObj.snippet.title || videoObj snippet description
@@ -47,10 +58,13 @@ class App extends React.Component {
           newList.push(video);
         }
       }
-    });
+    });*/
     //
     //when finished looping set state of videos to be new list
-    this.setState({videos: newList});
+    this.setState({
+      videos: list,
+      currentVideo: list[0]
+    });
   }
 
   render() {
@@ -58,16 +72,26 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <Search value={this.state.searchText} searchBar={this.search.bind(this)} submitSearch={this.changeList.bind(this)}/> {/* <div><h5><em>search</em> view goes here</h5></div> */}
+            <Search
+              value={this.state.searchText}
+              searchBar={this.search.bind(this)}
+              submitSearch={this.changeList.bind(this)}
+              videos={this.state.videos}
+            />{/* <div><h5><em>search</em> view goes here</h5></div> */}
           </div>
         </nav>
         <div className="row">
           <div className="col-md-7">
             {/* video = this.state.currentVideo */}
-            <VideoPlayer video={this.state.currentVideo}/>                             {/* <div><h5><em>videoPlayer</em> view goes here</h5></div> */}
+            <VideoPlayer video={this.state.currentVideo}/>
+            {/* <div><h5><em>videoPlayer</em> view goes here</h5></div> */}
           </div>
           <div className="col-md-5">
-            <VideoList videos={this.state.videos} appFunc={this.changeVideo.bind(this)}/>  {/* <div><h5><em>videoList</em> view goes here</h5></div> */}
+            <VideoList
+              videos={this.state.videos}
+              appFunc={this.changeVideo.bind(this)}
+            />
+            {/* <div><h5><em>videoList</em> view goes here</h5></div> */}
           </div>
         </div>
       </div>

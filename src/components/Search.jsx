@@ -6,7 +6,7 @@ var Search = (props) => {
 
     <div className="search-bar form-inline">
       <input className="form-control" type="text" defaultValue='' onChange={props.searchBar.bind(this)} />
-      <button className="btn hidden-sm-down" onClick={props.submitSearch.bind(null, exampleVideoData)} >
+      <button className="btn hidden-sm-down" onClick={props.submitSearch.bind(null, props.videos)} >
         <span className="glyphicon glyphicon-search"></span>
       </button>
     </div>
