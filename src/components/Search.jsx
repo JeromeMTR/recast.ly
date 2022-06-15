@@ -1,7 +1,7 @@
 import exampleVideoData from '../data/exampleVideoData.js';
+
+
 var Search = (props) => {
-
-
   return (
 
     <div className="search-bar form-inline">

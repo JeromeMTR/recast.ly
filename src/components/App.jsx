@@ -3,6 +3,7 @@ import VideoList from './VideoList.js';
 import VideoListEntry from './VideoListEntry.js';
 import VideoPlayer from './VideoPlayer.js';
 import Search from './Search.js';
+import searchYouTube from '../lib/searchYoutube.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -14,22 +15,25 @@ class App extends React.Component {
     };
   }
 
+
+
   changeVideo(video) {
     this.setState({currentVideo: video});
   }
-
   // create search functioin
   // get value inside search bar
   // change the search text to that value
   search(event) {
+    clearTimeout(test);
     console.log('text:', event.target.value);
     this.setState({searchText: event.target.value});
+    //set timeout 500ms
+    var test = (setTimeout(searchYouTube(event.target.value,this.setState.bind(this, ({videos: data}), 500))));
   }
 
 
+
   changeList(list) {
-    //
-    console.log('List:', list, 'this:', this);
     //take in example video data
     // define array thatll be new list of hits from search
     var newList = [];
@@ -46,7 +50,6 @@ class App extends React.Component {
     });
     //
     //when finished looping set state of videos to be new list
-    console.log('newList:', newList, 'this:', this);
     this.setState({videos: newList});
   }
 
